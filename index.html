@@ -114,6 +114,7 @@
                     dataType: 'json',
                     success: function (res) {
                         view.items = (res.values)
+                       console.info("data",  view.items)
                     },
                     error: function (res){
                         console.info("無資料", res)
