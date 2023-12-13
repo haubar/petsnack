@@ -65,13 +65,12 @@
 
       <div class="album py-5 bg-light">
         <div class="container">
-
-          <div class="row list-row" id="output">
+          <div class="row list-row" id="output" v-if="items.length > 0" v-for="(item, key) in items" v-if="key > 0">
             <div class="col-md-4">
               <div class="card mb-4 box-shadow">
-                <img class="card-img-top" src="https://random.imagecdn.app/150/150" alt="圖片說明">
+                <img class="card-img-top" src="{{item[5]}}" alt="{{item[5]}}">
                 <div class="card-body">
-                  <p class="card-text">兒歌三百首</p>
+                  <p class="card-text">{{item[2]}}</p>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
                       <button type="button" class="btn btn-sm btn-outline-secondary">看更多</button>
@@ -82,7 +81,6 @@
                 </div>
               </div>
             </div>
-          
           </div>
         </div>
       </div>
@@ -98,16 +96,32 @@
         <p>山川壯麗，雲霞璀璨， 彩虹橋樑，連接天岸。 曲水流觴，笑語間留戀， 歡聲笑語，盡情擁抱春</p>
       </div>
     </footer>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/> 
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
 </body>
 </htm>
-<script>
-    let output = document.getElementById('output');
-    let group = document.getElementsByClassName('list-row');
-    let sample =  group[0].innerHTML
-    for (let i = 0; i < 8; i++) {
-       output.innerHTML += sample
-    }
- </script>
+     <script>
+        let url = "https://sheets.googleapis.com/v4/spreadsheets/1oHaZs1xdZcKj6-vU1yZO2stoA5SJT8Q2pFtPUieHgcQ/values/%E7%A8%8B%E5%BC%8F%E7%AB%AF?alt=json&key=AIzaSyAeBu4pVjJXq9ZJ0z5e0YfYwfun3rdb2mA"
+        let view = new Vue({
+            el: '#output',
+            data: {
+                items: {}
+            },
+            mounted(){
+                $.ajax({
+                    url: url,
+                    dataType: 'json',
+                    success: function (res) {
+                        view.items = (res.values)
+                    },
+                    error: function (res){
+                        console.info("無資料", res)
+                    }
+                })
+               
+            }
+        })
+      
+    </script>
+
