@@ -7,10 +7,8 @@
     <meta name="author" content="">
     <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
 
-    <title>site name</title>
-
-    <link rel="canonical" href="#">
-
+    <title>PetSnack</title>
+    <meta http-equiv="Cache-Control" content="max-age=120, must-revalidate">
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <!-- Custom styles for this template -->
@@ -24,7 +22,7 @@
           <div class="row">
             <div class="col-sm-8 col-md-7 py-4">
               <h4 class="text-white">About</h4>
-              <p class="text-muted">關羽你的哥</p>
+              <p class="text-muted">寵物零食</p>
             </div>
             <div class="col-sm-4 offset-md-1 py-4">
               <h4 class="text-white">Contact</h4>
@@ -41,7 +39,7 @@
         <div class="container d-flex justify-content-between">
           <a href="#" class="navbar-brand d-flex align-items-center">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
-            <strong>xxxx測試站</strong>
+            <strong>PetSnack測試站</strong>
           </a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -54,8 +52,10 @@
 
       <section class="jumbotron text-center">
         <div class="container">
-          <h1 class="jumbotron-heading">還不知道要叫什麼</h1>
-          <p class="lead text-muted">當春久，草木漸苏醒， 杏花綻放，映日生輝。 風起水漾，湖面波濤起， 鳥語花香，春意盎然。</p>
+          <h1 class="jumbotron-heading">暫時叫寵物零食大拍賣</h1>
+          <p class="lead text-muted">
+            在這個美好的世界裡，有一種甜美的事物能夠讓我們的心與寵物更加相連──那就是寵物零食！讓我們一起探索一段關於寵物零食的奇幻旅程吧！
+          </p>
           <!-- <p>
             <a href="#" class="btn btn-primary my-2">Main call to action</a>
             <a href="#" class="btn btn-secondary my-2">Secondary action</a>
@@ -69,15 +69,23 @@
             <template v-for="(item, key) in items" v-if="key > 0">
               <div class="col-md-4">
                 <div class="card mb-4 box-shadow">
-                  <img class="card-img-top img-fluid" :src="item[5]+'_d.webp?maxwidth=300'" :alt="item[2]">
-                  <div class="card-body">
-                    <p class="card-text">{{item[2]}}</p>
+                  <picture>
+                    <span class="position-relative py-3 px-3 h4 font-weight-bold text-center text-white rounded-lg rounded-circle" style="background-color: #FFC04C;">{{item[1]}}</span>
+                    <img class="card-img-top img-fluid" style="aspect-ratio:1/1" :src="item[5]+'_d.webp?maxwidth=300'" :alt="item[2]">
+                  </picture>
+                  <div class="card-body bg-light">
+                    <h3 class="card-title">{{item[2]}}</h3>
+                    <h6 class="card-subtitle mb-2 text-pink text-muted">{{item[0]}}</h6>
+                    <p></p>
+                    <p class="card-text font-weight-bold text-info">NT${{item[4]}} 
+                      <code class="ml-2 text-warning">{{item[3]}}</code>
+                    </p>
                     <div class="d-flex justify-content-between align-items-center">
                       <div class="btn-group">
                         <button type="button" class="btn btn-sm btn-outline-secondary">看更多</button>
-                        <button type="button" class="btn btn-sm btn-outline-secondary">加入購物車</button>
+                        <button type="button" class="btn btn-sm btn-outline-secondary">立刻購買</button>
                       </div>
-                      <small class="text-muted">時間之類的</small>
+                      <!-- <small class="text-muted">時間之類的</small> -->
                     </div>
                   </div>
                 </div>
@@ -124,6 +132,7 @@
                 $.ajax({
                     url: url,
                     dataType: 'json',
+                    cache: true,
                     success: function (res) {
                         view.items = (res.values)
                        console.info("data",  view.items)
